@@ -1,19 +1,13 @@
 #include <iostream>
+#include "Vector.h"
 
 using namespace std;
-
-template <class T>
-
-T sum(T x, T y)
-{
-	return x + y;
-}
-
+	
 int main()
 {
-	int a = 10, b = 15;
+	Vector<float, int> v(9, 15);
+	v.print();
 
-	cout << "Sum = " << sum(a, b) << endl;
 
 	return 0;
 }
