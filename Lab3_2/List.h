@@ -15,13 +15,27 @@ private:
 	int size;
 
 public:
-
 	Element* findElement(int pos)
 	{
 		Element* current = head;
-		for (int i = 1; i <= pos; i++)
+		for (int i = 0; i < pos; i++)
 			current = current->next;
 		return current;
+	}
+
+	int getSize()
+	{
+		return size;
+	}
+
+	void print()
+	{
+		if (head == nullptr)
+			return;
+
+		for (Element* cur = head; cur != nullptr; cur = cur->next)
+			printf("%d ", cur->data);
+		printf("\n");
 	}
 
 	void pushList(int pos, int data)
@@ -29,7 +43,10 @@ public:
 		Element* tmp = new Element;
 		tmp->data = data;
 
-		if (pos >= size)
+		if (pos > size || pos < 0)
+			return;
+
+		if (pos == size)
 		{
 			tail = tmp;
 			tmp->next = nullptr;
@@ -45,7 +62,7 @@ public:
 			tmp->prev = nullptr;
 			head = tmp;
 		}
-		else if (size != 0)
+		else
 		{
 			tmp->prev = findElement(pos - 1);
 			tmp->prev->next = tmp;
@@ -58,13 +75,16 @@ public:
 		pushList(size, data);
 	}
 
-	void print()
+	Element* popList(int pos)
 	{
-		if (head == nullptr)
-			return;
+		if (pos < 0 || pos > size)
+			return 0;
 
-		for (Element* cur = head; cur != nullptr; cur = cur->next)
-			printf("%d ", cur->data);
+
+
+
 	}
+
+	
 
 };
