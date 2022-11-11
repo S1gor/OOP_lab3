@@ -6,11 +6,12 @@ using namespace std;
 int main()
 {
 	List<int>a;
-	a.pushList(10);
-	a.pushList(20);
-	a.pushList(2, 70);
-	a.print();
 
+	a.pushPos(20, 1);
+	a.pushHead(90);
+	a.pushTail(120);
+
+	a.print();
 
 	return 0;
 }

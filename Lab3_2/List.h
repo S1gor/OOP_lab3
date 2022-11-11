@@ -15,14 +15,6 @@ private:
 	int size;
 
 public:
-	Element* findElement(int pos)
-	{
-		Element* current = head;
-		for (int i = 0; i < pos; i++)
-			current = current->next;
-		return current;
-	}
-
 	int getSize()
 	{
 		return size;
@@ -38,53 +30,77 @@ public:
 		printf("\n");
 	}
 
-	void pushList(int pos, int data)
+	void pushHead(int data)
 	{
 		Element* tmp = new Element;
+		tmp->prev = nullptr;
+		tmp->next = head;
 		tmp->data = data;
 
-		if (pos > size || pos < 0)
-			return;
-
-		if (pos == size)
-		{
-			tail = tmp;
-			tmp->next = nullptr;
-		}
+		if (head == nullptr)
+			head = tail = tmp;
 		else
 		{
-			tmp->next = findElement(pos);
-			tmp->next->prev = tmp;
-		}
-
-		if (pos == 0)
-		{
-			tmp->prev = nullptr;
+			head->prev = tmp;
 			head = tmp;
-		}
-		else
-		{
-			tmp->prev = findElement(pos - 1);
-			tmp->prev->next = tmp;
 		}
 		size++;
 	}
 
-	void pushList(int data)
+	void pushTail(int data)
 	{
-		pushList(size, data);
+		Element* tmp = new Element;
+		tmp->next = nullptr;
+		tmp->prev = tail;
+		tmp->data = data;
+
+		if (head == nullptr)
+			head = tail = tmp;
+		else
+		{
+			tail->next = tmp;
+			tail = tmp;
+		}
+		size++;
 	}
 
-	Element* popList(int pos)
+	void pushPos(int data, int pos)
 	{
-		if (pos < 0 || pos > size)
-			return 0;
+		if (pos > size + 1 || pos < 0)
+			return;
+		else if (pos == size + 1)
+		{
+			pushTail(data);
+			return;
+		}
+		else if (pos == 1)
+		{
+			pushHead(data);
+			return;
+		}
 
+		Element* current = head;
+		int i = 1;
+		while (i < pos)
+		{
+			current = current->next;
+			i++;
+		}
 
+		Element* prv = current->prev;
+		Element* tmp = new Element;
+		tmp->data = data;
 
+		if (prv != 0 && size != 1)
+			prv->next = tmp;
 
+		tmp->next = current;
+		tmp->prev = prv;
+		current->prev = tmp;
+
+		size++;
 	}
 
-	
+
 
 };
