@@ -13,5 +13,8 @@ int main()
 
 	a.print();
 
+	cout << a.getElement(2) << endl;
+
+
 	return 0;
 }

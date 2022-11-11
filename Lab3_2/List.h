@@ -20,6 +20,22 @@ public:
 		return size;
 	}
 
+	int getElement(int pos)
+	{
+		if (pos < 1 || pos > size)
+			return 0;
+
+		Element* tmp = head;
+		int i = 1;
+		while (i < pos)
+		{
+			tmp = tmp->next;
+			i++;
+		}
+		int d = tmp->data;
+		return d;
+	}
+
 	void print()
 	{
 		if (head == nullptr)
@@ -66,7 +82,7 @@ public:
 
 	void pushPos(int data, int pos)
 	{
-		if (pos > size + 1 || pos < 0)
+		if (pos > size + 1 || pos < 1)
 			return;
 		else if (pos == size + 1)
 		{
@@ -101,6 +117,10 @@ public:
 		size++;
 	}
 
-
+	void pull(int pos)
+	{
+		if (pos < 1 || pos > size)
+			return;
+	}
 
 };
