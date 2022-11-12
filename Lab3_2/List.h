@@ -15,12 +15,12 @@ private:
 	int size;
 
 public:
-	int getSize()
+	int GetSize()
 	{
 		return size;
 	}
 
-	int getElement(int pos)
+	int GetElement(int pos)
 	{
 		if (pos < 1 || pos > size)
 			return 0;
@@ -36,17 +36,47 @@ public:
 		return d;
 	}
 
-	void print()
+	void PrintList()
 	{
 		if (head == nullptr)
 			return;
 
+		std::cout << "List:" << std::endl;
 		for (Element* cur = head; cur != nullptr; cur = cur->next)
 			printf("%d ", cur->data);
 		printf("\n");
 	}
 
-	void pushHead(int data)
+	void PrintElem(int pos)
+	{
+		if (pos < 1 || pos > size)
+			return;
+
+		Element* tmp;
+		if (pos <= size / 2)
+		{
+			tmp = head;
+			int i = 1;	
+			while (i < pos)
+			{
+				tmp = tmp->next;
+				i++;
+			}
+		}
+		else
+		{
+			tmp = tail;
+			int i = 1;
+			while (i <= size - pos)
+			{
+				tmp = tmp->prev;
+				i++;
+			}
+		}
+		std::cout << "Position " << pos << " - " << tmp->data << std::endl;
+	}
+
+	void PushHead(int data)
 	{
 		Element* tmp = new Element;
 		tmp->prev = nullptr;
@@ -63,7 +93,7 @@ public:
 		size++;
 	}
 
-	void pushTail(int data)
+	void PushTail(int data)
 	{
 		Element* tmp = new Element;
 		tmp->next = nullptr;
@@ -80,18 +110,18 @@ public:
 		size++;
 	}
 
-	void pushPos(int data, int pos)
+	void PushPos(int data, int pos)
 	{
 		if (pos > size + 1 || pos < 1)
 			return;
 		else if (pos == size + 1)
 		{
-			pushTail(data);
+			PushTail(data);
 			return;
 		}
 		else if (pos == 1)
 		{
-			pushHead(data);
+			PushHead(data);
 			return;
 		}
 
@@ -117,10 +147,40 @@ public:
 		size++;
 	}
 
-	void pull(int pos)
+	void DelElem(int pos)
 	{
 		if (pos < 1 || pos > size)
 			return;
+
+		Element* tmp = head;
+		int i = 1;
+		while (i < pos)
+		{
+			tmp = tmp->next;
+			i++;
+		}
+
+		Element* tmp_prev = tmp->prev;
+		Element* tmp_next = tmp->next;
+
+		if (tmp_prev != NULL && size != 1)
+			tmp_prev->next = tmp_next;
+		if (tmp_next != NULL && size != 1)
+			tmp_next->prev = tmp_prev;
+
+		if (pos == 1)
+			head = tmp_next;
+		if (pos == size)
+			tail = tmp_prev;
+
+		delete tmp;
+		size--;
+	}
+
+	void DelList()
+	{
+		while (size != NULL)
+			DelElem(1);
 	}
 
 };
