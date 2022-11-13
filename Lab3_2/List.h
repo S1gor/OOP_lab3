@@ -10,11 +10,17 @@ private:
 		Element* prev = nullptr;
 	};
 
-	Element* head = nullptr;
-	Element* tail = nullptr;
+	Element* head, tail;
 	int size;
 
 public:
+	List() : head(nullptr), tail(nullptr), size(NULL)
+	{}
+	~List()
+	{
+		DelList();
+	}
+
 	int GetSize()
 	{
 		return size;
@@ -182,5 +188,4 @@ public:
 		while (size != NULL)
 			DelElem(1);
 	}
-
 };
