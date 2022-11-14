@@ -5,17 +5,16 @@ template <typename T> class List
 private:
 	struct Element
 	{
-		int data;
+		T data;
 		Element* next = nullptr;
 		Element* prev = nullptr;
 	};
 
-	Element* head, tail;
+	Element* head, * tail;
 	int size;
 
 public:
-	List() : head(nullptr), tail(nullptr), size(NULL)
-	{}
+	List() : head(nullptr), tail(nullptr), size(NULL) {}
 	~List()
 	{
 		DelList();
@@ -26,20 +25,16 @@ public:
 		return size;
 	}
 
-	int GetElement(int pos)
+	T GetElement(int pos)
 	{
 		if (pos < 1 || pos > size)
 			return 0;
 
 		Element* tmp = head;
-		int i = 1;
-		while (i < pos)
-		{
+		for (int i = 1; i < pos; i++)
 			tmp = tmp->next;
-			i++;
-		}
-		int d = tmp->data;
-		return d;
+
+		return tmp->data;
 	}
 
 	void PrintList()
@@ -47,10 +42,10 @@ public:
 		if (head == nullptr)
 			return;
 
-		std::cout << "List:" << std::endl;
+		std::cout << "List:";
 		for (Element* cur = head; cur != nullptr; cur = cur->next)
-			printf("%d ", cur->data);
-		printf("\n");
+			std::cout << " " << cur->data;
+		std::cout << std::endl;
 	}
 
 	void PrintElem(int pos)
@@ -62,27 +57,19 @@ public:
 		if (pos <= size / 2)
 		{
 			tmp = head;
-			int i = 1;	
-			while (i < pos)
-			{
+			for (int i = 1; i < pos; i++)
 				tmp = tmp->next;
-				i++;
-			}
 		}
 		else
 		{
 			tmp = tail;
-			int i = 1;
-			while (i <= size - pos)
-			{
+			for (int i = 1; i <= size - pos; i++)
 				tmp = tmp->prev;
-				i++;
-			}
 		}
 		std::cout << "Position " << pos << " - " << tmp->data << std::endl;
 	}
 
-	void PushHead(int data)
+	void PushHead(T data)
 	{
 		Element* tmp = new Element;
 		tmp->prev = nullptr;
@@ -99,7 +86,7 @@ public:
 		size++;
 	}
 
-	void PushTail(int data)
+	void PushTail(T data)
 	{
 		Element* tmp = new Element;
 		tmp->next = nullptr;
@@ -116,7 +103,7 @@ public:
 		size++;
 	}
 
-	void PushPos(int data, int pos)
+	void PushPos(T data, int pos)
 	{
 		if (pos > size + 1 || pos < 1)
 			return;
@@ -132,12 +119,8 @@ public:
 		}
 
 		Element* current = head;
-		int i = 1;
-		while (i < pos)
-		{
+		for (int i = 1; i < pos; i++)
 			current = current->next;
-			i++;
-		}
 
 		Element* prv = current->prev;
 		Element* tmp = new Element;
@@ -159,12 +142,8 @@ public:
 			return;
 
 		Element* tmp = head;
-		int i = 1;
-		while (i < pos)
-		{
+		for (int i = 1; i < pos; i++)
 			tmp = tmp->next;
-			i++;
-		}
 
 		Element* tmp_prev = tmp->prev;
 		Element* tmp_next = tmp->next;
