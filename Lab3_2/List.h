@@ -37,15 +37,16 @@ public:
 		return tmp->data;
 	}
 
-	void PrintList()
+	friend std::ostream& operator<<(std::ostream& out, List const& list)
 	{
-		if (head == nullptr)
-			return;
+		if (list.head == nullptr)
+			return out;
 
-		std::cout << "List:";
-		for (Element* cur = head; cur != nullptr; cur = cur->next)
-			std::cout << " " << cur->data;
-		std::cout << std::endl;
+		out << "List:";
+		for (Element* cur = list.head; cur != nullptr; cur = cur->next)
+			out << " " << cur->data;
+		out << std::endl;
+		return out;
 	}
 
 	void PrintElem(int pos)
